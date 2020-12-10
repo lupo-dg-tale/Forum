@@ -1,0 +1,169 @@
+// Préparer les informations pour la connexion d'un utilisateur
+
+SELECT * 
+FROM utilisateur 
+WHERE mail = ''
+AND pseudo = ''
+AND mdp = ''
+
+// Créer un nouvel utilisateur
+
+SELECT mail 
+FROM utilisateur 
+WHERE mail = '' ;
+
+INSERT INTO utilisateur (mail, mdp, pseudo)
+VALUES ()
+
+// Supprimer un utilisateur (mon profil ou admin)
+
+DELETE FROM utilisateur 
+WHERE id_utilisateur = 
+
+// Afficher les infos d'un utilisateur
+
+SELECT * 
+FROM utilisateur 
+WHERE id_utilisateur = 
+
+// Liste des utilisateurs, avec rôle respectifs (pour admin)
+
+SELECT * 
+FROM utilisateur
+
+// Afficher la liste des utilisateurs avec nombre de sujets + ids
+
+SELECT u.id_utilisateur, pseudo, COUNT(id_sujet) AS nb_sujet
+FROM utilisateur u
+INNER JOIN sujet s
+ON s.utilisateur_id = u.id_utilisateur
+GROUP BY u.id_utilisateur
+
+// Afficher la liste des utilisateurs avec nombre de messages + ids
+
+SELECT u.id_utilisateur, pseudo, COUNT(id_reponse) AS nb_reponse
+FROM utilisateur u
+INNER JOIN reponse r
+ON r.utilisateur_id = u.id_utilisateur
+GROUP BY u.id_utilisateur
+
+
+// Compter les réponses pour un sujet
+
+SELECT s.id_sujet, titre, COUNT(id_reponse) AS nb_reponse
+FROM sujet s
+INNER JOIN reponse r
+ON r.sujet_id = s.id_sujet
+GROUP BY s.id_sujet
+
+// Afficher les sujets d'un utilisateur (ids_sujets)
+
+SELECT pseudo, titre, contenu
+FROM utilisateur u
+INNER JOIN sujet s
+ON s.utilisateur_id = u.id_utilisateur
+WHERE u.id_utilisateur = 
+
+
+// Afficher les messages d'un utilisateur (ids_messages)
+
+SELECT pseudo, texte
+FROM utilisateur u
+INNER JOIN reponse r
+ON r.utilisateur_id = u.id_utilisateur
+WHERE u.id_utilisateur = 
+
+
+// Créer un nouveau sujet
+
+INSERT INTO sujet (utilisateur_id, titre, contenu, categorie_id)
+VALUES () 
+
+// Créer un nouveau message
+
+INSERT INTO reponse ( texte, utilisateur_id, sujet_id )
+VALUES ()  
+
+// Éditer un sujet (titre)
+
+UPDATE sujet
+SET titre = '', contenu = ''
+WHERE id_sujet = 
+
+// Éditer un message (texte)
+
+UPDATE reponse 
+SET texte = ''
+WHERE id_reponse = 
+
+// Supprimer un sujet
+
+DELETE FROM reponse WHERE sujet_id = 
+DELETE FROM sujet WHERE id_sujet = 
+
+
+// Supprimer un message
+
+DELETE FROM reponse WHERE id_reponse =
+
+// Afficher tous les sujets, leur contenu, le nombre de message
+
+SELECT s.id_sujet, titre, contenu, COUNT(id_reponse) AS nb_reponse
+FROM sujet s
+INNER JOIN reponse r
+ON r.sujet_id = s.id_sujet
+WHERE s.id_sujet = 
+
+// Afficher tous les sujets (utilisateur, date, est_resolu, est_verrouille, nbReponses)
+
+SELECT s.id_sujet, titre, pseudo, s.datecreation, statut, COUNT(id_reponse) AS nb_reponse
+FROM sujet s
+INNER JOIN utilisateur u 
+ON u.id_utilisateur = s.utilisateur_id
+INNER JOIN reponse r
+ON r.sujet_id = s.id_sujet
+GROUP BY id_sujet
+
+// Afficher un sujet (utilisateur, date, est_resolu, est_verrouille, description, nbReponses) => View Liste des sujets
+
+SELECT s.id_sujet, titre, pseudo, s.datecreation, statut, COUNT(id_reponse) AS nb_reponse
+FROM sujet s
+INNER JOIN utilisateur u 
+ON u.id_utilisateur = s.utilisateur_id
+INNER JOIN reponse r
+ON r.sujet_id = s.id_sujet
+WHERE categorie_id = 
+
+// Afficher un sujet => View Page sujet
+
+SELECT id_sujet, titre, contenu, s.utilisateur_id, s.datecreation, id_reponse, texte, r.datecreation, avatar, pseudo
+FROM sujet s
+INNER JOIN reponse r
+ON r.sujet_id = s.id_sujet
+INNER JOIN utilisateur u 
+ON u.id_utilisateur = r.utilisateur_id
+WHERE id_sujet = 
+
+// Afficher la liste des catégories
+
+SELECT id_categorie, nom
+FROM categorie
+
+//Afficher le nb de sujets dans une catégories
+
+SELECT id_categorie, nom, COUNT(id_sujet) AS nb_sujet
+FROM categorie c
+INNER JOIN sujet s
+ON s.categorie_id = c.id_categorie
+WHERE id_categorie = 
+
+// Afficher tous les messages d'un sujet => View Page sujet
+
+
+//Afficher les 10 derniers membres inscrits
+
+
+//Afficher les sujets les plus récents
+
+
+//Afficher les 10 sujets les plus populaires (en fonction du nb de messages)
